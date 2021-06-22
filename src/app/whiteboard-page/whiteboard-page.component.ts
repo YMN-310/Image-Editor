@@ -9,7 +9,7 @@ import { TextNodeService } from '../text-node.service';
 })
 export class WhiteboardPageComponent implements OnInit {
   shapes: any = [];
-  stage: Konva.Stage;
+  stage: any;
   layer: Konva.Layer;
   selectedButton: any = {
     'circle': false,
