@@ -128,14 +128,19 @@ export class WhiteboardPageComponent implements OnInit {
     const component = this;
     const tr = new Konva.Transformer();
     this.stage.on('click', function (e) {
-      if (!this.clickStartShape) {
-        return;
-      }
-      if (e.target._id == this.clickStartShape._id) {
+      console.log(e.target);
+      console.log('ID: '+e.target._id);
+      // console.log('Click start shape ID: '+this.clickStartShape._id);
+      // if (!this.clickStartShape) {
+      //   console.log('Not clickStartShape');
+      //   return;
+      // }
+      if (e.target._id!==1) { // 1 is the id of stage and was causing stack overflow error.
         component.addDeleteListener(e.target);
         component.layer.add(tr);
         tr.attachTo(e.target);
         component.transformers.push(tr);
+        // tr.nodes([e.target]);
         component.layer.draw();
       }
       else {
