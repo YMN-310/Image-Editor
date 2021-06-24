@@ -19,6 +19,7 @@ export class WhiteboardPageComponent implements OnInit {
     'erase': false,
     'text': false
   }
+  // reshape: Konva.Transformer = new Konva.Transformer();
   erase: boolean = false;
   transformers: Konva.Transformer[] = [];
   constructor(
@@ -71,14 +72,15 @@ export class WhiteboardPageComponent implements OnInit {
     this.shapes.push(circle);
     this.layer.add(circle);
     this.stage.add(this.layer);
-    this.addTransformerListeners()
+    this.addTransformerListeners();
   }
   addRectangle() {
     const rectangle = this.shapeService.rectangle();
     this.shapes.push(rectangle);
     this.layer.add(rectangle);
     this.stage.add(this.layer);
-    this.addTransformerListeners()
+    this.addTransformerListeners();
+    
   }
   addLine() {
     this.selectedButton['line'] = true;
@@ -142,7 +144,7 @@ export class WhiteboardPageComponent implements OnInit {
       }
     });
   }
-  addDeleteListener(shape) {
+  addDeleteListener(shape: any) {
     const component = this;
     window.addEventListener('keydown', function (e) {
       if (e.keyCode === 46) {
@@ -158,3 +160,4 @@ export class WhiteboardPageComponent implements OnInit {
     });
   }
 }
+
