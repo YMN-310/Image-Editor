@@ -17,7 +17,8 @@ export class WhiteboardPageComponent implements OnInit {
     'line': false,
     'undo': false,
     'erase': false,
-    'text': false
+    'text': false,
+    'arrow': false
   }
   // reshape: Konva.Transformer = new Konva.Transformer();
   erase: boolean = false;
@@ -61,6 +62,9 @@ export class WhiteboardPageComponent implements OnInit {
     else if (type == 'text') {
       this.addText();
     }
+    else if(type == 'arrow') {
+      this.addArrow();
+    }
   }
   addText() {
     const text = this.textNodeService.textNode(this.stage, this.layer);
@@ -71,6 +75,13 @@ export class WhiteboardPageComponent implements OnInit {
     const circle = this.shapeService.circle();
     this.shapes.push(circle);
     this.layer.add(circle);
+    this.stage.add(this.layer);
+    this.addTransformerListeners();
+  }
+  addArrow() {
+    const arrow = this.shapeService.arrow();
+    this.shapes.push(arrow);
+    this.layer.add(arrow);
     this.stage.add(this.layer);
     this.addTransformerListeners();
   }

@@ -17,6 +17,22 @@ export class ShapeService {
       draggable: true
     });
   }
+  arrow() {
+    return new Konva.Arrow({
+      x: 400,
+      y: 100,
+      points: [0, 0, 100, 100],
+      pointerLength: 10,
+      pointerWidth: 10,
+      fill: 'black',
+      stroke: 'black',
+      type: 'Arrow',
+      draggable: true,
+      strokeWidth: 5,
+      strokeScaleEnabled: false,
+      hitStrokeWidth: 50
+     });
+  }
   line(pos:any, mode: string = 'brush') {
     return new Konva.Line({
       stroke: '#df4b26',
@@ -34,6 +50,7 @@ export class ShapeService {
       width: 100,
       height: 50,
       // fill: 'green',
+      strokeScaleEnabled: false,
       stroke: 'black',
       strokeWidth: 4,
       draggable: true
