@@ -135,7 +135,7 @@ export class WhiteboardPageComponent implements OnInit {
     }
     this.layer.draw();
   }
-  
+  /*****************Image Upload *******************/
   imgUpload(e: any) {
     var URL = window.webkitURL || window.URL;
     var url = URL.createObjectURL(e.target.files[0]);
@@ -171,7 +171,75 @@ export class WhiteboardPageComponent implements OnInit {
     this.stage.width(w);
     this.stage.height(h);
   }
-  
+  /**************************Image Upload *****************************/
+  /**************************Download *********************************/
+
+  downloadImage(){
+    var dataURL = this.stage.toDataURL({ 
+      mimeType: "image/jpeg",
+      quality: 0.9, //***Quality at .9 for first compression.*** 
+      pixelRatio: 3
+      });
+    var _stage=this.stage;
+    var _this=this;
+    console.log("Size after first compression: "+dataURL.length/1024 +"Kb");
+    //****Condition for second compression*****//
+    if(dataURL.length<1024*200) this.downloadURI(dataURL, 'stage.jpeg');
+    else{
+      const blobURL = dataURL;
+      const img = new Image();
+      img.src = blobURL;
+      img.onerror = function () {
+        URL.revokeObjectURL(this.src);
+        // Handle the failure properly
+        console.log("Cannot load image");
+      };
+      img.onload = function () {
+        URL.revokeObjectURL(img.src);
+        const canvas = document.createElement("canvas");
+        //***Increase resolution of canvas for more clarity.***//
+        canvas.width = 2*_stage.width();
+        canvas.height = 2*_stage.height();
+        const ctx = canvas.getContext("2d");
+        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+        canvas.toBlob(
+          (blob) => {
+            _this.downloadBlob(blob, 'stage.jpeg');
+            console.log("Size after second compression: "+blob.size/1024 +"Kb");
+            //Checks file size in Kb.
+          },
+          "image/jpeg",
+          0.9
+        );
+      };
+    }
+  }
+
+  downloadURI(uri:any, name:any) {
+    var link = document.createElement('a');
+    link.download = name;
+    link.href = uri;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    link.remove();
+  }
+
+  downloadBlob(blob:any, name = 'stage.jpeg') {
+    const data = window.URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = data;
+    link.download = name;
+    link.dispatchEvent(
+      new MouseEvent('click', { 
+      bubbles: true, 
+      cancelable: true, 
+      view: window 
+     })
+    );
+  }
+
+  /**************************Download *********************************/
   addTransformerListeners() {
     const component = this;
     const tr = new Konva.Transformer();

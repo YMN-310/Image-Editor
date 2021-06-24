@@ -17,5 +17,7 @@
     <span>Upload</span>
     <input #fileInput type="file" (change)="imgUpload($event)" style="display:none;" />
   </button>
+  <button mat-raised-button [color]='selectedButton["erase"] ? "primary":""'
+      (click)='downloadImage();'>Download</button>
 </div>
 <div id="container"></div>
