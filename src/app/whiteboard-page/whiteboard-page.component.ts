@@ -157,8 +157,8 @@ export class WhiteboardPageComponent implements OnInit {
         type: 'Image',
         x: 0,
         y: 0,
-        width: 1000,
-        height: 1000
+        width: stage.width(),
+        height: stage.height()
         });
       shapes.push(theImg);
       layer.add(theImg);
