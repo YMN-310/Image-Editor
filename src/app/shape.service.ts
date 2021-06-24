@@ -10,7 +10,8 @@ export class ShapeService {
       x: 100,
       y: 100,
       radius: 70,
-      fill: 'red',
+      // fill: 'red',
+      strokeScaleEnabled: false,
       stroke: 'black',
       strokeWidth: 4,
       draggable: true
