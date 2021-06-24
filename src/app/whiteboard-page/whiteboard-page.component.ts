@@ -146,12 +146,12 @@ export class WhiteboardPageComponent implements OnInit {
     var _layer = this.layer;
     var _stage=this.stage;
     var _this=this;
-    console.log(e);
     
-    img.onload = function(rs) {
+    img.onload = function(e) {
       // CleanBG();
-      var w=rs.currentTarget['width']; //Taking width and height of the image.
-      var h=rs.currentTarget['height'];
+      console.log(e);
+      var w=e.currentTarget['width']; //Taking width and height of the image.
+      var h=e.currentTarget['height'];
       _this.resizeStage(w,h);// Resizing stage according to the width and height of image.
       console.log("Image width: "+w);
       console.log("Image height: "+h);
