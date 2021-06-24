@@ -135,6 +135,7 @@ export class WhiteboardPageComponent implements OnInit {
     }
     this.layer.draw();
   }
+  
   imgUpload(e: any) {
     var URL = window.webkitURL || window.URL;
     var url = URL.createObjectURL(e.target.files[0]);
@@ -143,28 +144,34 @@ export class WhiteboardPageComponent implements OnInit {
     var shapes = this.shapes;
     var layer = this.layer;
     var stage=this.stage;
+    var _this=this;
     console.log(e);
     
-    img.onload = function() {
+    img.onload = function(rs) {
       // CleanBG();
-      // var w=this.width; //Taking width and height of the image.
-      // var h=this.height;
-      // resizeStage(w,h);// Resizing stage according to the width and height of image.
-      // console.log("Image width: "+w);
-      // console.log("Image height: "+h);
+      var w=rs.currentTarget['width']; //Taking width and height of the image.
+      var h=rs.currentTarget['height'];
+      _this.resizeStage(w,h);// Resizing stage according to the width and height of image.
+      console.log("Image width: "+w);
+      console.log("Image height: "+h);
       var theImg = new Konva.Image({
         image: img,
         type: 'Image',
         x: 0,
         y: 0,
-        width: stage.width(),
-        height: stage.height()
+        width: w,
+        height: h
         });
       shapes.push(theImg);
       layer.add(theImg);
       stage.add(layer);
     }
   }
+  resizeStage(w: any,h:any){
+    this.stage.width(w);
+    this.stage.height(h);
+  }
+  
   addTransformerListeners() {
     const component = this;
     const tr = new Konva.Transformer();
