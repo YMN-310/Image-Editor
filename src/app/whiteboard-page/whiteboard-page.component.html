@@ -13,5 +13,9 @@
       (click)='clearSelection(); setSelection("undo"); undo()'>Undo</button>
   <button mat-raised-button [color]='selectedButton["erase"] ? "primary":""'
       (click)='clearSelection(); setSelection("erase"); erase = true'>Erase</button>
+  <button type="button" mat-raised-button (click)="fileInput.click()">
+    <span>Upload</span>
+    <input #fileInput type="file" (change)="imgUpload($event)" style="display:none;" />
+  </button>
 </div>
 <div id="container"></div>
