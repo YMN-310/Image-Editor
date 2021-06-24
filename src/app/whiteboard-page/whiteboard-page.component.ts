@@ -141,9 +141,9 @@ export class WhiteboardPageComponent implements OnInit {
     var url = URL.createObjectURL(e.target.files[0]);
     var img = new Image();
     img.src = url;
-    var shapes = this.shapes;
-    var layer = this.layer;
-    var stage=this.stage;
+    var _shapes = this.shapes;
+    var _layer = this.layer;
+    var _stage=this.stage;
     var _this=this;
     console.log(e);
     
@@ -162,9 +162,9 @@ export class WhiteboardPageComponent implements OnInit {
         width: w,
         height: h
         });
-      shapes.push(theImg);
-      layer.add(theImg);
-      stage.add(layer);
+      _shapes.push(theImg);
+      _layer.add(theImg);
+      _stage.add(_layer);
     }
   }
   resizeStage(w: any,h:any){
