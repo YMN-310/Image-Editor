@@ -74,6 +74,7 @@ textNode.on('dblclick', () => {
       // remember that text rendering on canvas and on the textarea can be different
       // and sometimes it is hard to make it 100% the same. But we will try...
       textarea.value = 'Press ENTER when finished!';
+      textarea.select();
       textarea.style.position = 'absolute';
       textarea.style.top = areaPosition.y + 'px';
       textarea.style.left = areaPosition.x + 'px';
