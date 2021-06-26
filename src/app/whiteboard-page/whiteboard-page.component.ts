@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { fakeAsync } from '@angular/core/testing';
 import Konva from 'konva';
 import { ShapeService } from '../shape.service';
 import { TextNodeService } from '../text-node.service';
@@ -18,7 +19,8 @@ export class WhiteboardPageComponent implements OnInit {
     'undo': false,
     'erase': false,
     'text': false,
-    'arrow': false
+    'arrow': false,
+    'tick': false
   }
   // reshape: Konva.Transformer = new Konva.Transformer();
   erase: boolean = false;
@@ -66,6 +68,9 @@ export class WhiteboardPageComponent implements OnInit {
     else if(type == 'arrow') {
       this.addArrow();
     }
+    else if(type == 'tick') {
+      this.addTick();
+    }
   }
   addText() {
     const text = this.textNodeService.textNode(this.stage, this.layer);
@@ -84,6 +89,21 @@ export class WhiteboardPageComponent implements OnInit {
     this.shapes.push(arrow);
     this.layer.add(arrow);
     this.stage.add(this.layer);
+    this.addTransformerListeners();
+  }
+  addTick() {
+    const tick = this.shapeService.tick();
+    this.shapes.push(tick);
+    this.layer.add(tick);
+    this.stage.add(this.layer);
+    tick.getSelfRect = function(){
+      return{
+        x: 15,
+        y: 60,
+        width: 45,
+        height: 30
+      };
+    }
     this.addTransformerListeners();
   }
   addRectangle() {

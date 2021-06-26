@@ -33,6 +33,29 @@ export class ShapeService {
       hitStrokeWidth: 50
      });
   }
+  tick() {
+    return new Konva.Shape({
+      x: 300,
+      y: 100,
+      type: 'Tick',
+      draggable: true,
+      strokeScaleEnabled: false,
+      sceneFunc: function (context, shape) {
+        context.beginPath();
+        context.moveTo(15, 75);
+        context.lineTo(30, 90);
+        context.lineTo(60, 60);
+        context.fillStrokeShape(shape);
+      },
+      hitFunc: function (context, shape){
+        context.beginPath();
+        context.rect(15,60,45,30);
+        context.fillStrokeShape(shape);
+      },
+      stroke: 'black',
+      strokeWidth: 5,  
+    });
+  }
   line(pos:any, mode: string = 'brush') {
     return new Konva.Line({
       stroke: '#df4b26',

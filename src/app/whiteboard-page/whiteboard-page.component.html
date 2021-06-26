@@ -5,6 +5,8 @@
       (click)='setSelection("rectangle"); addShape("rectangle")'>Rectangle</button>
   <button mat-raised-button [color]='selectedButton["arrow"] ? "primary":""'
       (click)='setSelection("arrow"); addShape("arrow")'>Arrow</button>
+  <button mat-raised-button [color]='selectedButton["tick"] ? "primary":""'
+      (click)='setSelection("tick"); addShape("tick")'>Tick</button>
   <button mat-raised-button [color]='selectedButton["line"] ? "primary":""'
       (click)='setSelection("line"); addShape("line"); erase = false'>Line</button>
   <button mat-raised-button [color]='selectedButton["text"] ? "primary":""'
