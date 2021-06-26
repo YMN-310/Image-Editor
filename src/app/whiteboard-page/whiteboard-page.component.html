@@ -1,25 +1,41 @@
-<div class="row">
-  <button mat-raised-button [color]='selectedButton["circle"] ? "primary":""'
-      (click)='setSelection("circle"); addShape("circle")'>Circle</button>
-  <button mat-raised-button [color]='selectedButton["rectangle"] ? "primary":""'
-      (click)='setSelection("rectangle"); addShape("rectangle")'>Rectangle</button>
-  <button mat-raised-button [color]='selectedButton["arrow"] ? "primary":""'
-      (click)='setSelection("arrow"); addShape("arrow")'>Arrow</button>
-  <button mat-raised-button [color]='selectedButton["tick"] ? "primary":""'
-      (click)='setSelection("tick"); addShape("tick")'>Tick</button>
-  <button mat-raised-button [color]='selectedButton["line"] ? "primary":""'
-      (click)='setSelection("line"); addShape("line"); erase = false'>Line</button>
-  <button mat-raised-button [color]='selectedButton["text"] ? "primary":""'
-      (click)='setSelection("text"); addShape("text")'>Text</button>
-  <button mat-raised-button [color]='selectedButton["undo"] ? "primary":""'
-      (click)='clearSelection(); setSelection("undo"); undo()'>Undo</button>
-  <button mat-raised-button [color]='selectedButton["erase"] ? "primary":""'
-      (click)='clearSelection(); setSelection("erase"); erase = true'>Erase</button>
-  <button type="button" mat-raised-button (click)="fileInput.click()">
-    <span>Upload</span>
-    <input #fileInput type="file" (change)="imgUpload($event)" style="display:none;" />
-  </button>
-  <button mat-raised-button [color]='selectedButton["erase"] ? "primary":""'
-      (click)='downloadImage();'>Download</button>
-</div>
+<!-- <div id="" class="row"> -->
+  <div class="row">
+    <button mat-raised-button [color]='selectedButton["circle"] ? "primary":""'
+        (click)='setSelection("circle"); addShape("circle")'>Circle</button>
+    <button mat-raised-button [color]='selectedButton["rectangle"] ? "primary":""'
+        (click)='setSelection("rectangle"); addShape("rectangle")'>Rectangle</button>
+    <button mat-raised-button [color]='selectedButton["triangle"] ? "primary":""'
+        (click)='setSelection("triangle"); addShape("triangle")'>Triangle</button>
+    <button mat-raised-button [color]='selectedButton["arrow"] ? "primary":""'
+        (click)='setSelection("arrow"); addShape("arrow")'>Arrow</button>
+    <button mat-raised-button [color]='selectedButton["tick"] ? "primary":""'
+        (click)='setSelection("tick"); addShape("tick")'>Tick</button>
+    <button mat-raised-button [color]='selectedButton["line"] ? "primary":""'
+        (click)='setSelection("line"); addShape("line"); erase = false'>Line</button>
+    <button mat-raised-button [color]='selectedButton["text"] ? "primary":""'
+        (click)='setSelection("text"); addShape("text")'>Text</button>
+  </div>
+  <div class="row">
+    <button mat-raised-button [color]='selectedButton["clean"] ? "primary":""'
+        (click)='cleanfunc();'>Clean</button>
+    <button mat-raised-button [color]='selectedButton["cleanshapes"] ? "primary":""'
+        (click)='cleanshapesfunc()'>Clean Shapes</button>
+    <button mat-raised-button [color]='selectedButton["cleancircle"] ? "primary":""'
+        (click)='cleancirclefunc()'>Clean Circle</button>
+    <button mat-raised-button [color]='selectedButton["cleanrectangle"] ? "primary":""'
+        (click)='cleanrectanglefunc()'>Clean Rectangle</button>
+    <button mat-raised-button [color]='selectedButton["undo"] ? "primary":""'
+        (click)='clearSelection(); setSelection("undo"); undo()'>Undo</button>
+    <!-- <button mat-raised-button [color]='selectedButton["erase"] ? "primary":""' -->
+        <!-- (click)='clearSelection(); setSelection("erase"); erase = true'>Erase</button> -->
+  </div>
+  <div class="row">
+    <button type="button" mat-raised-button (click)="fileInput.click()">
+      <span>Upload</span>
+      <input #fileInput type="file" (change)="imgUpload($event)" style="display:none;" />
+    </button>
+    <button mat-raised-button [color]='selectedButton["erase"] ? "primary":""'
+        (click)='downloadImage();'>Download</button>
+  </div>
+<!-- </div> -->
 <div id="container"></div>

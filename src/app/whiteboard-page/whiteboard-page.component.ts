@@ -20,7 +20,8 @@ export class WhiteboardPageComponent implements OnInit {
     'erase': false,
     'text': false,
     'arrow': false,
-    'tick': false
+    'tick': false,
+    'triangle': false
   }
   // reshape: Konva.Transformer = new Konva.Transformer();
   erase: boolean = false;
@@ -71,6 +72,9 @@ export class WhiteboardPageComponent implements OnInit {
     else if(type == 'tick') {
       this.addTick();
     }
+    else if(type == 'triangle') {
+      this.addTriangle();
+    }
   }
   addText() {
     const text = this.textNodeService.textNode(this.stage, this.layer);
@@ -111,8 +115,14 @@ export class WhiteboardPageComponent implements OnInit {
     this.shapes.push(rectangle);
     this.layer.add(rectangle);
     this.stage.add(this.layer);
-    this.addTransformerListeners();
-    
+    this.addTransformerListeners(); 
+  }
+  addTriangle() {
+    const triangle = this.shapeService.triangle();
+    this.shapes.push(triangle);
+    this.layer.add(triangle);
+    this.stage.add(this.layer);
+    this.addTransformerListeners(); 
   }
   addLine() {
     this.selectedButton['line'] = true;
@@ -156,6 +166,86 @@ export class WhiteboardPageComponent implements OnInit {
     }
     this.layer.draw();
   }
+  /*****************Clean Functions *******************/
+
+  cleanBG(){
+    for (var i = 0; i < this.shapes.length; i++) {
+        // reshape.detach();
+        this.shapes[i].destroy();
+        this.shapes.splice(i, 1);
+        i--;
+    }
+  }
+
+  cleanfunc(){
+    // this.not_draw();
+    this.transformers.forEach(t => {
+      t.detach();
+    });
+    for (var i = 0; i < this.shapes.length; i++) {
+      if (this.shapes[i]["attrs"].type !== "Image") {
+        // reshape.detach();
+        this.shapes[i].destroy();
+        this.shapes.splice(i, 1);
+        i--;
+      }
+    }
+    console.log('clean',this.shapes);
+  }
+  
+  cleanshapesfunc(){
+    // this.not_draw();
+    this.transformers.forEach(t => {
+      t.detach();
+    });
+    for (var i = 0; i < this.shapes.length; i++) {
+      if (
+        this.shapes[i]["attrs"].type !== "Image" &&
+        this.shapes[i]["attrs"].type !== "Text" &&
+        this.shapes[i]["attrs"].type !== "Draw"
+      ) {
+        // reshape.detach();
+        this.shapes[i].destroy();
+        this.shapes.splice(i, 1);
+        i--;
+      }
+    }
+    console.log('cleanshape',this.shapes);
+  }
+  
+  cleancirclefunc(){
+    // this.not_draw();
+    this.transformers.forEach(t => {
+      t.detach();
+    });
+    for (var i = 0; i < this.shapes.length; i++) {
+      if (this.shapes[i]["attrs"].type === "Circle") {
+        // reshape.detach();
+        this.shapes[i].destroy();
+        this.shapes.splice(i, 1);
+        i--;
+      }
+    }
+    console.log('cleancircle',this.shapes);
+  }
+  
+  cleanrectanglefunc(){
+    // this.not_draw();
+    this.transformers.forEach(t => {
+      t.detach();
+    });
+    for (var i = 0; i < this.shapes.length; i++) {
+      if (this.shapes[i]["attrs"].type === "Rectangle") {
+        // reshape.detach();
+        this.shapes[i].destroy();
+        this.shapes.splice(i, 1);
+        i--;
+      }
+    }
+    console.log('cleanrectangle',this.shapes);
+  }
+
+  /*****************Clean Functions *******************/
   /*****************Image Upload *******************/
   imgUpload(e: any) {
     var URL = window.webkitURL || window.URL;
@@ -168,7 +258,7 @@ export class WhiteboardPageComponent implements OnInit {
     var _this=this;
     
     img.onload = function(e) {
-      // CleanBG();
+      _this.cleanBG();
       console.log(e);
       var w=e.currentTarget['width']; //Taking width and height of the image.
       var h=e.currentTarget['height'];

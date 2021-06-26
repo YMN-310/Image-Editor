@@ -9,6 +9,7 @@ export class ShapeService {
     return new Konva.Circle({
       x: 100,
       y: 100,
+      type: 'Circle',
       radius: 70,
       // fill: 'red',
       strokeScaleEnabled: false,
@@ -16,6 +17,19 @@ export class ShapeService {
       strokeWidth: 4,
       draggable: true
     });
+  }
+  triangle(){
+    return new Konva.RegularPolygon({
+      x: 400,
+      y: 150,
+      sides: 3,
+      radius: 50,
+      type : "Triangle",
+      draggable: true,
+      stroke: 'black',
+      strokeWidth: 4,
+      strokeScaleEnabled: false,
+      });
   }
   arrow() {
     return new Konva.Arrow({
@@ -70,6 +84,7 @@ export class ShapeService {
     return new Konva.Rect({
       x: 20,
       y: 20,
+      type: 'Rectangle',
       width: 100,
       height: 50,
       // fill: 'green',
