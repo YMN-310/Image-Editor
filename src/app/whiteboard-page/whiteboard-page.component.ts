@@ -76,7 +76,13 @@ export class WhiteboardPageComponent implements OnInit {
       this.addTriangle();
     }
   }
+  satgeClick(e:any){
+
+  }
   addText() {
+    this.transformers.forEach(t => {
+      t.detach();
+    });
     const text = this.textNodeService.textNode(this.stage, this.layer);
     this.shapes.push(text.textNode);
     this.transformers.push(text.tr);

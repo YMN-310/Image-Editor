@@ -10,6 +10,7 @@ textNode(stage: any, layer: Konva.Layer) {
       text: 'type here',
       x: 50,
       y: 80,
+      type: 'Text',
       fontSize: 20,
       draggable: true,
       width: 200
@@ -25,10 +26,10 @@ let tr = new Konva.Transformer({
       }
     });
 stage.on('click', function (e) {
-      if (!this.clickStartShape) {
-        return;
-      }
-      if (e.target._id == this.clickStartShape._id) {
+      // if (!this.clickStartShape) {
+      //   return;
+      // }
+      if (e.target.attrs.type == 'Text') {
         layer.add(tr);
         tr.attachTo(e.target);
         layer.draw();
@@ -48,6 +49,8 @@ textNode.on('transform', function () {
 layer.add(tr);
 layer.draw();
 textNode.on('dblclick', () => {
+      console.log("Double clicked on text");
+      
       // hide text node and transformer:
       textNode.hide();
       tr.hide();
@@ -70,7 +73,7 @@ textNode.on('dblclick', () => {
       // apply many styles to match text on canvas as close as possible
       // remember that text rendering on canvas and on the textarea can be different
       // and sometimes it is hard to make it 100% the same. But we will try...
-      textarea.value = textNode.text();
+      textarea.value = 'Press ENTER when finished!';
       textarea.style.position = 'absolute';
       textarea.style.top = areaPosition.y + 'px';
       textarea.style.left = areaPosition.x + 'px';
