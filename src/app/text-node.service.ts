@@ -81,7 +81,7 @@ textNode.on('dblclick', () => {
       textarea.style.width = textNode.width() - textNode.padding() * 2 + 'px';
       textarea.style.height =
         textNode.height() - textNode.padding() * 2 + 5 + 'px';
-      textarea.style.fontSize = textNode.fontSize() + 'px';
+      textarea.style.fontSize = textNode.fontSize()-3 + 'px';
       textarea.style.border = 'none';
       textarea.style.padding = '0px';
       textarea.style.margin = '0px';
