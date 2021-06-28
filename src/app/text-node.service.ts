@@ -7,11 +7,12 @@ export class TextNodeService {
 constructor() { }
 textNode(stage: any, layer: Konva.Layer) {
     const textNode = new Konva.Text({
-      text: 'type here',
+      text: 'type here...',
       x: 50,
       y: 80,
       type: 'Text',
-      fontSize: 20,
+      fontSize: 16,
+      edited: false,
       draggable: true,
       width: 200
     });
@@ -73,7 +74,8 @@ textNode.on('dblclick', () => {
       // apply many styles to match text on canvas as close as possible
       // remember that text rendering on canvas and on the textarea can be different
       // and sometimes it is hard to make it 100% the same. But we will try...
-      textarea.value = 'Press ENTER when finished!';
+      if(textNode.attrs.edited===false) textarea.value = 'Hit ENTER when finished!';
+      else textarea.value=textNode.text();
       textarea.select();
       textarea.style.position = 'absolute';
       textarea.style.top = areaPosition.y + 'px';
@@ -81,7 +83,7 @@ textNode.on('dblclick', () => {
       textarea.style.width = textNode.width() - textNode.padding() * 2 + 'px';
       textarea.style.height =
         textNode.height() - textNode.padding() * 2 + 5 + 'px';
-      textarea.style.fontSize = textNode.fontSize()-3 + 'px';
+      textarea.style.fontSize = textNode.fontSize() + 'px';
       textarea.style.border = 'none';
       textarea.style.padding = '0px';
       textarea.style.margin = '0px';
@@ -148,6 +150,7 @@ let isEdge =
         // but don't hide on shift + enter
         if (e.keyCode === 13 && !e.shiftKey) {
           textNode.text(textarea.value);
+          textNode.attrs.edited=true;
           removeTextarea();
         }
         // on esc do not set value back to node
