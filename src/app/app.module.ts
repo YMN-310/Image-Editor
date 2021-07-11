@@ -7,11 +7,13 @@ import { AppComponent } from './app.component';
 import { WhiteboardPageComponent } from './whiteboard-page/whiteboard-page.component';
 import { ShapeService } from './shape.service';
 import { TextNodeService } from './text-node.service';
+import { AnimatedModelComponent } from './animated-model/animated-model.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    WhiteboardPageComponent
+    WhiteboardPageComponent,
+    AnimatedModelComponent
   ],
   imports: [
     BrowserModule,
