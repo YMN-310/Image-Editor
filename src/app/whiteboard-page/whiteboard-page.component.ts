@@ -10,7 +10,7 @@ import { TextNodeService } from '../text-node.service';
 })
 export class WhiteboardPageComponent implements OnInit {
 
-  @Input() imgUrl: any;
+  // @Input() imgUrl: any;
   
   @Output() backToModel: EventEmitter<any> = new EventEmitter();
   goToModel(){
@@ -41,7 +41,6 @@ export class WhiteboardPageComponent implements OnInit {
   ) { }
   ngOnInit() {
     
-    console.log(this.imgUrl);
     let width = window.innerWidth * 0.9;
     let height = window.innerHeight;
     this.stage = new Konva.Stage({
