@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { fakeAsync } from '@angular/core/testing';
 import Konva from 'konva';
 import { ShapeService } from '../shape.service';
@@ -9,6 +9,15 @@ import { TextNodeService } from '../text-node.service';
   styleUrls: ['./whiteboard-page.component.css']
 })
 export class WhiteboardPageComponent implements OnInit {
+
+  @Input() imgUrl: any;
+  
+  @Output() backToModel: EventEmitter<any> = new EventEmitter();
+  goToModel(){
+    console.log("back to model is fired!");
+    this.backToModel.emit();
+  }
+
   shapes: any = [];
   stage: any;
   layer: Konva.Layer;
@@ -31,6 +40,8 @@ export class WhiteboardPageComponent implements OnInit {
     private textNodeService: TextNodeService
   ) { }
   ngOnInit() {
+    
+    console.log(this.imgUrl);
     let width = window.innerWidth * 0.9;
     let height = window.innerHeight;
     this.stage = new Konva.Stage({
@@ -42,6 +53,12 @@ export class WhiteboardPageComponent implements OnInit {
     this.layer = new Konva.Layer();
     this.stage.add(this.layer);
     this.addLineListeners();
+  }
+  imgData: any;
+  setImgUrl(str: any){
+    this.imgData=str;
+    console.log(this.imgData);
+    this.imgUpload();
   }
   clearSelection() {
     Object.keys(this.selectedButton).forEach(key => {
@@ -86,6 +103,7 @@ export class WhiteboardPageComponent implements OnInit {
     const text = this.textNodeService.textNode(this.stage, this.layer);
     this.shapes.push(text.textNode);
     this.transformers.push(text.tr);
+    this.makeList();
   }
   addCircle() {
     const circle = this.shapeService.circle();
@@ -93,6 +111,7 @@ export class WhiteboardPageComponent implements OnInit {
     this.layer.add(circle);
     this.stage.add(this.layer);
     this.addTransformerListeners();
+    this.makeList();
   }
   addArrow() {
     const arrow = this.shapeService.arrow();
@@ -100,6 +119,7 @@ export class WhiteboardPageComponent implements OnInit {
     this.layer.add(arrow);
     this.stage.add(this.layer);
     this.addTransformerListeners();
+    this.makeList();
   }
   addTick() {
     const tick = this.shapeService.tick();
@@ -115,6 +135,7 @@ export class WhiteboardPageComponent implements OnInit {
       };
     }
     this.addTransformerListeners();
+    this.makeList();
   }
   addRectangle() {
     const rectangle = this.shapeService.rectangle();
@@ -122,6 +143,7 @@ export class WhiteboardPageComponent implements OnInit {
     this.layer.add(rectangle);
     this.stage.add(this.layer);
     this.addTransformerListeners(); 
+    this.makeList();
   }
   addTriangle() {
     const triangle = this.shapeService.triangle();
@@ -129,9 +151,11 @@ export class WhiteboardPageComponent implements OnInit {
     this.layer.add(triangle);
     this.stage.add(this.layer);
     this.addTransformerListeners(); 
+    this.makeList();
   }
   addLine() {
     this.selectedButton['line'] = true;
+    this.makeList();
   }
   addLineListeners() {
     const component = this;
@@ -181,6 +205,7 @@ export class WhiteboardPageComponent implements OnInit {
         this.shapes.splice(i, 1);
         i--;
     }
+    this.makeList();
   }
 
   cleanfunc(){
@@ -196,6 +221,7 @@ export class WhiteboardPageComponent implements OnInit {
         i--;
       }
     }
+    this.makeList();
     console.log('clean',this.shapes);
   }
   
@@ -216,6 +242,7 @@ export class WhiteboardPageComponent implements OnInit {
         i--;
       }
     }
+    this.makeList();
     console.log('cleanshape',this.shapes);
   }
   
@@ -232,6 +259,7 @@ export class WhiteboardPageComponent implements OnInit {
         i--;
       }
     }
+    this.makeList();
     console.log('cleancircle',this.shapes);
   }
   
@@ -248,16 +276,17 @@ export class WhiteboardPageComponent implements OnInit {
         i--;
       }
     }
+    this.makeList();
     console.log('cleanrectangle',this.shapes);
   }
 
   /*****************Clean Functions *******************/
   /*****************Image Upload *******************/
-  imgUpload(e: any) {
-    var URL = window.webkitURL || window.URL;
-    var url = URL.createObjectURL(e.target.files[0]);
+  imgUpload() {
+    // var URL = window.webkitURL || window.URL;
+    // var url = URL.createObjectURL(e.target.files[0]);
     var img = new Image();
-    img.src = url;
+    img.src = this.imgData;
     var _shapes = this.shapes;
     var _layer = this.layer;
     var _stage=this.stage;
@@ -357,6 +386,7 @@ export class WhiteboardPageComponent implements OnInit {
   }
 
   /**************************Download *********************************/
+  
   addTransformerListeners() {
     const component = this;
     const tr = new Konva.Transformer();
@@ -393,6 +423,25 @@ export class WhiteboardPageComponent implements OnInit {
       }
       component.layer.batchDraw();
     });
+  }
+
+  //---------------------Adding List Functionality-----------------------------
+
+
+  makeList(){
+    var ul = document.getElementById("myList");
+    ul.innerHTML = '';
+    for(var i = 0; i < this.shapes.length; i++)
+    {
+      var li = document.createElement("li");
+      const t = document.createTextNode(""+ this.shapes[i]["attrs"].type);
+      li.appendChild(t);
+      document.getElementById("myList").appendChild(li);
+
+      var span = document.createElement("SPAN");
+      span.className = "close";
+      li.appendChild(span);
+    }
   }
 }
 

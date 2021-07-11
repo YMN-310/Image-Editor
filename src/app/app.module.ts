@@ -8,12 +8,14 @@ import { WhiteboardPageComponent } from './whiteboard-page/whiteboard-page.compo
 import { ShapeService } from './shape.service';
 import { TextNodeService } from './text-node.service';
 import { AnimatedModelComponent } from './animated-model/animated-model.component';
+import { ModelsListComponent } from './models-list/models-list.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     WhiteboardPageComponent,
-    AnimatedModelComponent
+    AnimatedModelComponent,
+    ModelsListComponent
   ],
   imports: [
     BrowserModule,

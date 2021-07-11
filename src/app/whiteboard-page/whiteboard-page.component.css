@@ -4,3 +4,14 @@ button{
 #buttons{
   position: fixed;
 }
+#list{
+  position:absolute;
+  top: 5%;
+  left: 90%;
+  background-color: aqua;
+}
+#myList{
+  margin: 0px;
+  padding-left: 20px;
+  padding-top: 10px;
+}

@@ -1,2 +1,6 @@
-<app-whiteboard-page></app-whiteboard-page>
-<app-animated-model></app-animated-model>
+<app-models-list id="E1" (modelSelected)='modelSelected();'></app-models-list>
+
+<app-animated-model id="E2" style="display: none;" (startEditing)='startEditing($event);' ></app-animated-model>
+
+<app-whiteboard-page id='E3' [imgUrl]='imgData' style="display: none;" (backToModel)='backToModel();'></app-whiteboard-page>
+<!-- Put display: block to show -->

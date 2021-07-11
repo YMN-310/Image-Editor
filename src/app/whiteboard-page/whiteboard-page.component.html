@@ -30,12 +30,19 @@
         <!-- (click)='clearSelection(); setSelection("erase"); erase = true'>Erase</button> -->
   </div>
   <div class="row">
-    <button type="button" mat-raised-button (click)="fileInput.click()">
+    <!-- <button type="button" mat-raised-button (click)="fileInput.click()">
       <span>Upload</span>
       <input #fileInput type="file" (change)="imgUpload($event)" style="display:none;" />
-    </button>
+    </button> -->
     <button mat-raised-button [color]='selectedButton["erase"] ? "primary":""'
         (click)='downloadImage();'>Download</button>
+    <button mat-raised-button [color]='selectedButton["erase"] ? "primary":""'
+        (click)='goToModel();'>Go To Model</button>
   </div>
 <!-- </div> -->
 <div id="container"></div>
+<div id="list">Shapes List:
+  <ul id="myList">
+    
+  </ul>
+</div>
