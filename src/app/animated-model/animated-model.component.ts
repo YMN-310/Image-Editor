@@ -37,13 +37,15 @@ export class AnimatedModelComponent implements OnInit {
       model_mat.diffuseTexture= new BABYLON.Texture(modelData.textureSrc,scene);
       model_mat.specularColor=new BABYLON.Color3(0.2,.2,.2);
       let _model = scene.getMeshByUniqueID(4);
-      var size = _model.getBoundingInfo().boundingBox.extendSize;
+
+      var size = _model.getBoundingInfo().boundingBox.extendSize;//gives model size
 	    console.log(size);
 
       let resetCamera=Math.max(size._x,size._y,size._z);
       camera.radius=4*resetCamera;//camera radius
       camera.wheelPrecision=50/resetCamera;//zoom sensitivity
       _model.position= new BABYLON.Vector3(0,-resetCamera,0);//mesh position
+
       console.log(_model);
       _model.material=model_mat;
 
