@@ -27,4 +27,10 @@ export class ModelsListComponent implements OnInit {
     this.modelData.meshName="Male";
     this.modelSelected.emit(this.modelData);
   }
+  showBrain(){
+    this.modelData.modelSrc="Brain.obj";
+    this.modelData.textureSrc="assets/brain_tex.jpg";
+    this.modelData.meshName="Brain";
+    this.modelSelected.emit(this.modelData);
+  }
 }

@@ -31,14 +31,14 @@ export class AnimatedModelComponent implements OnInit {
       const lighty = new BABYLON.HemisphericLight("light", new BABYLON.Vector3(0, 2, 0), scene);
       const lightz = new BABYLON.HemisphericLight("light", new BABYLON.Vector3(0, 0, 2), scene);
 
-      let head = await BABYLON.SceneLoader.ImportMeshAsync("", "assets/", modelData.modelSrc , scene);
-      console.log(head);
-      const head_mat = new BABYLON.StandardMaterial("head_mat", scene);
-      head_mat.diffuseTexture= new BABYLON.Texture(modelData.textureSrc,scene);
-      head_mat.specularColor=new BABYLON.Color3(0.2,.2,.2);
-      let _head = scene.getMeshByName(modelData.meshName);
-      console.log(_head);
-      _head.material=head_mat;
+      let model = await BABYLON.SceneLoader.ImportMeshAsync("", "assets/", modelData.modelSrc , scene);
+      console.log(model);
+      const model_mat = new BABYLON.StandardMaterial("model_mat", scene);
+      model_mat.diffuseTexture= new BABYLON.Texture(modelData.textureSrc,scene);
+      model_mat.specularColor=new BABYLON.Color3(0.2,.2,.2);
+      let _model = scene.getMeshByUniqueID(4);
+      console.log(_model);
+      _model.material=model_mat;
 
       return scene;
     }
