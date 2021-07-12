@@ -24,7 +24,7 @@ export class AnimatedModelComponent implements OnInit {
     const createScene = async function() {
       const scene = new BABYLON.Scene(engine);
       
-      const camera = new BABYLON.ArcRotateCamera("camera",Math.PI/2, Math.PI/2, 250, new BABYLON.Vector3(0, 80, 0), scene);
+      const camera = new BABYLON.ArcRotateCamera("camera",Math.PI/2, Math.PI/2, 5, new BABYLON.Vector3(0, 0, 0), scene);
       camera.attachControl(canvas, true);
       
       const lightx = new BABYLON.HemisphericLight("light", new BABYLON.Vector3(2, 0, 0), scene);
@@ -37,6 +37,13 @@ export class AnimatedModelComponent implements OnInit {
       model_mat.diffuseTexture= new BABYLON.Texture(modelData.textureSrc,scene);
       model_mat.specularColor=new BABYLON.Color3(0.2,.2,.2);
       let _model = scene.getMeshByUniqueID(4);
+      var size = _model.getBoundingInfo().boundingBox.extendSize;
+	    console.log(size);
+
+      let resetCamera=Math.max(size._x,size._y,size._z);
+      camera.radius=4*resetCamera;//camera radius
+      camera.wheelPrecision=50/resetCamera;//zoom sensitivity
+      _model.position= new BABYLON.Vector3(0,-resetCamera,0);//mesh position
       console.log(_model);
       _model.material=model_mat;
 
