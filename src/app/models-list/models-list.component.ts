@@ -15,7 +15,16 @@ export class ModelsListComponent implements OnInit {
   ngOnInit(): void { 
   }
   
+  modelData={
+    modelSrc: "",
+    textureSrc: "",
+    meshName: ""
+  }
+
   showHumanBody(){
-    this.modelSelected.emit();
+    this.modelData.modelSrc="Male.obj";
+    this.modelData.textureSrc="assets/TextureMale.png";
+    this.modelData.meshName="Male";
+    this.modelSelected.emit(this.modelData);
   }
 }

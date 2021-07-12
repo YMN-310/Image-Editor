@@ -1,6 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { WhiteboardPageComponent } from './whiteboard-page/whiteboard-page.component';
-// import { url } from 'inspector';
+import { ModelsListComponent } from './models-list/models-list.component';
+import { AnimatedModelComponent } from './animated-model/animated-model.component';
 
 @Component({
   selector: 'app-root',
@@ -9,18 +10,22 @@ import { WhiteboardPageComponent } from './whiteboard-page/whiteboard-page.compo
 })
 export class AppComponent {
 
-  @ViewChild(WhiteboardPageComponent) child: WhiteboardPageComponent ;
-  modelSelected(){
+  @ViewChild(WhiteboardPageComponent) whiteboard_child: WhiteboardPageComponent ;
+  @ViewChild(ModelsListComponent) models_list_child: ModelsListComponent;
+  @ViewChild(AnimatedModelComponent) animated_model_child: AnimatedModelComponent;
+
+  modelSelected(modelData: any){
     document.getElementById('E1').style.display='none';
     document.getElementById('E3').style.display='none';
     document.getElementById('E2').style.display='block';
+    // this.animated_model_child.ngOnInit();
+    this.animated_model_child.startBabylon(modelData);
   }
   startEditing(ImgUrl){
-    this.imgData=ImgUrl;
     document.getElementById('E1').style.display='none';
     document.getElementById('E2').style.display='none';
     document.getElementById('E3').style.display='block';
-    this.child.setImgUrl(ImgUrl);
+    this.whiteboard_child.setImgUrl(ImgUrl);
   }
   backToModel(){
     console.log("back to model is received!");
@@ -29,7 +34,5 @@ export class AppComponent {
     document.getElementById('E2').style.display='block';
   }
   title = 'whiteboard-app';
-  
-  imgData: any="Initial Value of image data";
   
 }

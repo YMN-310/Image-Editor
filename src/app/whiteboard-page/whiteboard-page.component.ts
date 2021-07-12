@@ -56,7 +56,7 @@ export class WhiteboardPageComponent implements OnInit {
   imgData: any;
   setImgUrl(str: any){
     this.imgData=str;
-    console.log(this.imgData);
+    // console.log(this.imgData);
     this.imgUpload();
   }
   clearSelection() {
