@@ -3,6 +3,8 @@ import { fakeAsync } from '@angular/core/testing';
 import Konva from 'konva';
 import { ShapeService } from '../shape.service';
 import { TextNodeService } from '../text-node.service';
+// import 'web-animations-js';
+import * as $ from 'jquery';
 @Component({
   selector: 'app-whiteboard-page',
   templateUrl: './whiteboard-page.component.html',
@@ -11,7 +13,7 @@ import { TextNodeService } from '../text-node.service';
 export class WhiteboardPageComponent implements OnInit {
 
   // @Input() imgUrl: any;
-  
+  public isCollapsed = true;
   @Output() backToModel: EventEmitter<any> = new EventEmitter();
   goToModel(){
     console.log("back to model is fired!");
@@ -39,8 +41,39 @@ export class WhiteboardPageComponent implements OnInit {
     private shapeService: ShapeService,
     private textNodeService: TextNodeService
   ) { }
+  
   ngOnInit() {
+
+    $(document).ready(function () {
+      var trigger = $('.hamburger'),
+          overlay = $('.overlay'),
+         isClosed = false;
     
+        trigger.click(function () {
+          hamburger_cross();   
+          console.log("Button clicked");   
+        });
+    
+        function hamburger_cross() {
+    
+          if (isClosed == true) {          
+            overlay.hide();
+            trigger.removeClass('is-open');
+            trigger.addClass('is-closed');
+            isClosed = false;
+          } else {   
+            overlay.show();
+            trigger.removeClass('is-closed');
+            trigger.addClass('is-open');
+            isClosed = true;
+          }
+      }
+      
+      $('[data-toggle="offcanvas"]').click(function () {
+            $('#wrapper').toggleClass('toggled');
+      });  
+    });
+
     let width = window.innerWidth * 0.9;
     let height = window.innerHeight;
     this.stage = new Konva.Stage({
@@ -53,6 +86,15 @@ export class WhiteboardPageComponent implements OnInit {
     this.stage.add(this.layer);
     this.addLineListeners();
   }
+
+  check_draw = false;
+  not_draw() {
+  this.check_draw = false;
+  this.stage.off("mousedown touchstart");
+  this.stage.off("mouseup touchend");
+  this.stage.off("mousemove touchmove");
+}
+
   imgData: any;
   setImgUrl(str: any){
     this.imgData=str;
@@ -68,6 +110,7 @@ export class WhiteboardPageComponent implements OnInit {
     this.selectedButton[type] = true;
   }
   addShape(type: string) {
+    if(type!=='line') this.not_draw();
     this.clearSelection();
     this.setSelection(type);
     if (type == 'circle') {
@@ -198,6 +241,7 @@ export class WhiteboardPageComponent implements OnInit {
   /*****************Clean Functions *******************/
 
   cleanBG(){
+    this.not_draw();
     for (var i = 0; i < this.shapes.length; i++) {
         // reshape.detach();
         this.shapes[i].destroy();
@@ -208,7 +252,7 @@ export class WhiteboardPageComponent implements OnInit {
   }
 
   cleanfunc(){
-    // this.not_draw();
+    this.not_draw();
     this.transformers.forEach(t => {
       t.detach();
     });
@@ -225,7 +269,7 @@ export class WhiteboardPageComponent implements OnInit {
   }
   
   cleanshapesfunc(){
-    // this.not_draw();
+    this.not_draw();
     this.transformers.forEach(t => {
       t.detach();
     });
@@ -246,7 +290,7 @@ export class WhiteboardPageComponent implements OnInit {
   }
   
   cleancirclefunc(){
-    // this.not_draw();
+    this.not_draw();
     this.transformers.forEach(t => {
       t.detach();
     });
@@ -263,7 +307,7 @@ export class WhiteboardPageComponent implements OnInit {
   }
   
   cleanrectanglefunc(){
-    // this.not_draw();
+    this.not_draw();
     this.transformers.forEach(t => {
       t.detach();
     });
@@ -390,10 +434,6 @@ export class WhiteboardPageComponent implements OnInit {
     const component = this;
     const tr = new Konva.Transformer();
     this.stage.on('click', function (e) {
-      console.log(e);
-      
-      console.log(e.target);
-      console.log('ID: '+e.target._id);
       if (e.target.attrs.type!=='Stage'&&e.target.attrs.type!=='Image') { 
         component.addDeleteListener(e.target);
         component.layer.add(tr);
@@ -425,22 +465,84 @@ export class WhiteboardPageComponent implements OnInit {
   }
 
   //---------------------Adding List Functionality-----------------------------
-
-
   makeList(){
-    var ul = document.getElementById("myList");
-    ul.innerHTML = '';
+    var select = document.getElementById("myList");
+    select.innerHTML = '';
     for(var i = 0; i < this.shapes.length; i++)
     {
-      var li = document.createElement("li");
+      var div = document.createElement("div");
+      div.style.color = "white";
+      div.style.textIndent = "60px";
+      div.className = "list_element"
       const t = document.createTextNode(""+ this.shapes[i]["attrs"].type);
-      li.appendChild(t);
-      document.getElementById("myList").appendChild(li);
-
-      var span = document.createElement("SPAN");
-      span.className = "close";
-      li.appendChild(span);
+  
+      const button = document.createElement("button");
+      button.className = "btn btn-info btn-sm";
+      button.id = "b"+i;
+      const t1 = document.createTextNode("S_&_H");
+      button.appendChild(t1);
+  
+      const button2 = document.createElement("button");
+      button2.className = "btn btn-info btn-sm";
+      button2.id = "t"+i;
+      const t2 = document.createTextNode("top");
+      button2.appendChild(t2);
+  
+      const button3 = document.createElement("button");
+      button3.className = "btn btn-info btn-sm";
+      button3.id = "d"+i;
+      const t3 = document.createTextNode("down");
+      button3.appendChild(t3);
+  
+      div.id = ""+i;
+      div.appendChild(t);
+      div.appendChild(button);
+      div.appendChild(button2);
+      div.appendChild(button3);
+      document.getElementById("myList").appendChild(div);
     }
   }
+  
+    
+  divSingleClick(e: any){
+    var i =  e.target.id;
+    const _this=this;
+    if(i[0]=='b')
+      this.show_and_hide(i);
+    else if(i[0]=='t')
+      this.move_to_top(i);
+    else if(i[0]=='d')
+      this.move_to_bottom(i);        
+    else
+    {
+      const tr = new Konva.Transformer();
+      _this.layer.add(tr);
+      tr.attachTo(e.target);
+      _this.transformers.push(tr);
+      _this.layer.draw();
+    }
+  }
+  divDoubleClick(){
+    //detach transformer
+  }
+  
+  
+  show_and_hide(i: any){
+    var j = i.slice(1,);
+    if (!this.shapes[j]["attrs"].visible) {
+      this.shapes[j].show();
+    } else {
+      this.shapes[j].hide();
+    }
+  }
+  
+  move_to_top(i: any){
+    var j = i.slice(1,);
+    this.shapes[j].moveToTop();
+  }
+  
+  move_to_bottom(i: any){
+    var j = i.slice(1,);
+    this.shapes[j].moveToBottom();
+  }
 }
-

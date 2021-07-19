@@ -1,48 +1,62 @@
-<!-- <div id="" class="row"> -->
-  <div class="row">
-    <button mat-raised-button [color]='selectedButton["circle"] ? "primary":""'
-        (click)='setSelection("circle"); addShape("circle")'>Circle</button>
-    <button mat-raised-button [color]='selectedButton["rectangle"] ? "primary":""'
-        (click)='setSelection("rectangle"); addShape("rectangle")'>Rectangle</button>
-    <button mat-raised-button [color]='selectedButton["triangle"] ? "primary":""'
-        (click)='setSelection("triangle"); addShape("triangle")'>Triangle</button>
-    <button mat-raised-button [color]='selectedButton["arrow"] ? "primary":""'
-        (click)='setSelection("arrow"); addShape("arrow")'>Arrow</button>
-    <button mat-raised-button [color]='selectedButton["tick"] ? "primary":""'
-        (click)='setSelection("tick"); addShape("tick")'>Tick</button>
-    <button mat-raised-button [color]='selectedButton["line"] ? "primary":""'
-        (click)='setSelection("line"); addShape("line"); erase = false'>Line</button>
-    <button mat-raised-button [color]='selectedButton["text"] ? "primary":""'
-        (click)='setSelection("text"); addShape("text")'>Text</button>
-  </div>
-  <div class="row">
-    <button mat-raised-button [color]='selectedButton["clean"] ? "primary":""'
-        (click)='cleanfunc();'>Clean</button>
-    <button mat-raised-button [color]='selectedButton["cleanshapes"] ? "primary":""'
-        (click)='cleanshapesfunc()'>Clean Shapes</button>
-    <button mat-raised-button [color]='selectedButton["cleancircle"] ? "primary":""'
-        (click)='cleancirclefunc()'>Clean Circle</button>
-    <button mat-raised-button [color]='selectedButton["cleanrectangle"] ? "primary":""'
-        (click)='cleanrectanglefunc()'>Clean Rectangle</button>
-    <button mat-raised-button [color]='selectedButton["undo"] ? "primary":""'
-        (click)='clearSelection(); setSelection("undo"); undo()'>Undo</button>
-    <!-- <button mat-raised-button [color]='selectedButton["erase"] ? "primary":""' -->
-        <!-- (click)='clearSelection(); setSelection("erase"); erase = true'>Erase</button> -->
-  </div>
-  <div class="row">
-    <!-- <button type="button" mat-raised-button (click)="fileInput.click()">
-      <span>Upload</span>
-      <input #fileInput type="file" (change)="imgUpload($event)" style="display:none;" />
-    </button> -->
-    <button mat-raised-button [color]='selectedButton["erase"] ? "primary":""'
-        (click)='downloadImage();'>Download</button>
-    <button mat-raised-button [color]='selectedButton["erase"] ? "primary":""'
-        (click)='goToModel();'>Go To Model</button>
-  </div>
-<!-- </div> -->
-<div id="container"></div>
-<div id="list">Shapes List:
-  <ul id="myList">
+<div id="container"> </div>
+
+<div id="wrapper">
+  <div class="overlay"></div>
     
-  </ul>
+        <!-- Sidebar -->
+  <nav class="navbar navbar-inverse fixed-top" id="sidebar-wrapper" role="navigation">
+    <ul class="nav sidebar-nav">
+      <li class="dropdown">
+        <div ngbDropdown class="d-inline-block">
+          <a href="#" class="dropdown-toggle" id="dropdownBasic1" ngbDropdownToggle>Shapes</a>
+          <ul ngbDropdownMenu aria-labelledby="dropdownBasic1">
+            <li class="listItem" ngbDropdownItem>Action - 1</li>
+            <li class="listItem" ngbDropdownItem>Another Action</li>
+            <li class="listItem" ngbDropdownItem>Something</li>
+          </ul>
+        </div>
+      </li>
+      <li><a href="#draw"id="Draw">Draw</a></li>
+      <li><a href="#text"id="Text">Text</a></li>
+      <li class="dropdown">
+        <div ngbDropdown class="d-inline-block">
+          <a href="#" class="dropdown-toggle" id="dropdownBasic1" ngbDropdownToggle>Shapes List</a>
+          <ul ngbDropdownMenu class="myL" aria-labelledby="dropdownBasic1">
+            <li ngbDropdownItem>Action - 1</li>
+          </ul>
+        </div>
+      </li>
+      <li><a href="#color-picker"><input onInput="colour = this.value" type="color" class="color-picker"></a></li>
+      <li class="dropdown">
+        <a href="#cleaning" class="dropdown-toggle"  data-toggle="dropdown">Cleaning<span class="caret"></span></a>
+        <ul class="dropdown-menu animated fadeInLeft" role="menu">
+          <li><a href="#all"id="Clean">Clean</a></li>
+          <li><a href="#ghi"id="Cleanshapes">Clean Shapes</a></li>
+          <li><a href="#abc"id="CleanCircle">Clean Circle</a></li>
+          <li><a href="#def"id="CleanRectangle">Clean Rectangle</a></li>
+          <li><a href="#undo"id="Undo">Undo</a></li>
+        </ul>
+      </li>
+      <li class="dropdown">
+        <a href="#upload" class="dropdown-toggle"  data-toggle="dropdown">Upload<span class="caret"></span></a>
+        <ul class="dropdown-menu animated fadeInLeft" role="menu">
+          <li><input type="file" id="file_input"></li>
+        </ul>
+      </li>
+      <li><a href="#download"id="save">Download</a></li>
+      
+    </ul>
+  </nav>
+
+        <!-- /#sidebar-wrapper -->
+
+        <!-- Page Content -->
+<div id="page-content-wrapper">
 </div>
+<button type="button" id="ham_button" class="hamburger animated fadeInLeft is-closed" data-toggle="offcanvas" >
+  <span class="hamb-top"></span>
+  <span class="hamb-middle"></span>
+  <span class="hamb-bottom"></span>
+</button>
+</div>
+<ul id="myList"></ul>

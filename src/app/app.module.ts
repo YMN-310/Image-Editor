@@ -9,6 +9,7 @@ import { ShapeService } from './shape.service';
 import { TextNodeService } from './text-node.service';
 import { AnimatedModelComponent } from './animated-model/animated-model.component';
 import { ModelsListComponent } from './models-list/models-list.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { ModelsListComponent } from './models-list/models-list.component';
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    MatButtonModule
+    MatButtonModule,
+    NgbModule
   ],
   providers: [
     ShapeService,
