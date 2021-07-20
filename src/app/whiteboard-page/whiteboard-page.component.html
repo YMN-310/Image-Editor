@@ -1,48 +1,39 @@
-<div id="container"> </div>
+
 
 <div id="wrapper">
-  <div class="overlay"></div>
+  <!-- <div class="overlay"></div> -->
     
         <!-- Sidebar -->
   <nav class="navbar navbar-inverse fixed-top" id="sidebar-wrapper" role="navigation">
     <ul class="nav sidebar-nav">
-      <li class="dropdown">
-        <div ngbDropdown class="d-inline-block">
-          <a href="#" class="dropdown-toggle" id="dropdownBasic1" ngbDropdownToggle>Shapes</a>
-          <ul ngbDropdownMenu aria-labelledby="dropdownBasic1">
-            <li class="listItem" ngbDropdownItem>Action - 1</li>
-            <li class="listItem" ngbDropdownItem>Another Action</li>
-            <li class="listItem" ngbDropdownItem>Something</li>
-          </ul>
-        </div>
+      <li ngbDropdown class="dropdown d-inline-block">
+        <a href="#" class="dropdown-toggle" id="dropdownBasic1" ngbDropdownToggle>Shapes</a>
+        <ul ngbDropdownMenu aria-labelledby="dropdownBasic1">
+          <button class="listItem clkbtn" ngbDropdownItem (click)='setSelection("circle"); addShape("circle")'>Circle</button>
+          <button class="listItem clkbtn" ngbDropdownItem>Another Action</button>
+          <button class="listItem clkbtn" ngbDropdownItem>Something</button>
+        </ul>
       </li>
       <li><a href="#draw"id="Draw">Draw</a></li>
       <li><a href="#text"id="Text">Text</a></li>
-      <li class="dropdown">
-        <div ngbDropdown class="d-inline-block">
-          <a href="#" class="dropdown-toggle" id="dropdownBasic1" ngbDropdownToggle>Shapes List</a>
-          <ul ngbDropdownMenu class="myL" aria-labelledby="dropdownBasic1">
-            <li ngbDropdownItem>Action - 1</li>
-          </ul>
-        </div>
+      <li ngbDropdown class="dropdown d-inline-block">
+        <a href="#" class="dropdown-toggle" id="dropdownBasic1" ngbDropdownToggle>Shapes List</a>
+        <ul ngbDropdownMenu class="myList" aria-labelledby="dropdownBasic1">
+          <li class="listItem" ngbDropdownItem>Action - 1</li>
+        </ul>
       </li>
       <li><a href="#color-picker"><input onInput="colour = this.value" type="color" class="color-picker"></a></li>
-      <li class="dropdown">
-        <a href="#cleaning" class="dropdown-toggle"  data-toggle="dropdown">Cleaning<span class="caret"></span></a>
-        <ul class="dropdown-menu animated fadeInLeft" role="menu">
-          <li><a href="#all"id="Clean">Clean</a></li>
-          <li><a href="#ghi"id="Cleanshapes">Clean Shapes</a></li>
-          <li><a href="#abc"id="CleanCircle">Clean Circle</a></li>
-          <li><a href="#def"id="CleanRectangle">Clean Rectangle</a></li>
-          <li><a href="#undo"id="Undo">Undo</a></li>
+      <li ngbDropdown class="dropdown d-inline-block">
+        <a href="#cleaning" class="dropdown-toggle"  id="dropdownBasic1" ngbDropdownToggle>Cleaning<span class="caret"></span></a>
+        <ul ngbDropdownMenu class="dropdown-menu animated fadeInLeft" aria-labelledby="dropdownBasic1" role="menu">
+          <li class="listItem" ngbDropdownItem>Clean</li>
+          <li class="listItem" ngbDropdownItem>Clean Shapes</li>
+          <li class="listItem" ngbDropdownItem>Clean Circle</li>
+          <li class="listItem" ngbDropdownItem>Clean Rectangle</li>
+          <li class="listItem" ngbDropdownItem>Undo</li>
         </ul>
       </li>
-      <li class="dropdown">
-        <a href="#upload" class="dropdown-toggle"  data-toggle="dropdown">Upload<span class="caret"></span></a>
-        <ul class="dropdown-menu animated fadeInLeft" role="menu">
-          <li><input type="file" id="file_input"></li>
-        </ul>
-      </li>
+      <li><a href="#upload">Upload</a></li>
       <li><a href="#download"id="save">Download</a></li>
       
     </ul>
@@ -52,6 +43,7 @@
 
         <!-- Page Content -->
 <div id="page-content-wrapper">
+  <div id="container"> </div>
 </div>
 <button type="button" id="ham_button" class="hamburger animated fadeInLeft is-closed" data-toggle="offcanvas" >
   <span class="hamb-top"></span>
@@ -59,4 +51,4 @@
   <span class="hamb-bottom"></span>
 </button>
 </div>
-<ul id="myList"></ul>
+<!-- <ul id="myList"></ul> -->

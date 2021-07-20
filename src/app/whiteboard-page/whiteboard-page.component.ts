@@ -50,8 +50,7 @@ export class WhiteboardPageComponent implements OnInit {
          isClosed = false;
     
         trigger.click(function () {
-          hamburger_cross();   
-          console.log("Button clicked");   
+          hamburger_cross();  
         });
     
         function hamburger_cross() {
@@ -466,8 +465,8 @@ export class WhiteboardPageComponent implements OnInit {
 
   //---------------------Adding List Functionality-----------------------------
   makeList(){
-    var select = document.getElementById("myList");
-    select.innerHTML = '';
+    var select = document.querySelector(".myList");
+    // select.innerHTML = '';
     for(var i = 0; i < this.shapes.length; i++)
     {
       var div = document.createElement("div");
