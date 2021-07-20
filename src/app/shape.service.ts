@@ -7,7 +7,7 @@ export class ShapeService {
   constructor() { }
   circle() {
     return new Konva.Circle({
-      x: 100,
+      x: 300,
       y: 100,
       type: 'Circle',
       radius: 70,
@@ -82,11 +82,11 @@ export class ShapeService {
   }
   rectangle() {
     return new Konva.Rect({
-      x: 20,
-      y: 20,
+      x: 300,
+      y: 100,
       type: 'Rectangle',
-      width: 100,
-      height: 50,
+      width: 150,
+      height: 100,
       // fill: 'green',
       strokeScaleEnabled: false,
       stroke: 'black',

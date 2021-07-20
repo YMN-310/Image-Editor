@@ -82,11 +82,21 @@ padding: 0;
   list-style: none;
 }
 
+.libtn{
+  padding: 0;
+  border: none;
+  background: none;
+}
+
 .sidebar-nav li, .clkbtn {
   position: relative; 
   line-height: 20px;
   display: inline-block;
   width: 100%;
+}
+
+.clkbtn{
+  line-height: 8px;
 }
 
 .sidebar-nav li:before, .clkbtn:before {
@@ -104,26 +114,23 @@ padding: 0;
           transition: width .2s ease-in;
 
 }
-.clkbtn:before{
-  background-color: #cc3399;
-}
 .sidebar-nav li:first-child a {
   color: #fff;
   background-color: #1a1a1a;
 }
-.sidebar-nav li:nth-child(5n+1):before {
+.sidebar-nav li:nth-child(5n+1):before, .secondaryList button:nth-child(5n+1):before {
   background-color: #ec1b5a;   
 }
-.sidebar-nav li:nth-child(5n+2):before {
+.sidebar-nav li:nth-child(5n+2):before, .secondaryList button:nth-child(5n+2):before {
   background-color: #79aefe;   
 }
-.sidebar-nav li:nth-child(5n+3):before {
+.sidebar-nav li:nth-child(5n+3):before, .secondaryList button:nth-child(5n+3):before {
   background-color: #314190;   
 }
-.sidebar-nav li:nth-child(5n+4):before {
+.sidebar-nav li:nth-child(5n+4):before, .secondaryList button:nth-child(5n+4):before {
   background-color: #279636;   
 }
-.sidebar-nav li:nth-child(5n+5):before {
+.sidebar-nav li:nth-child(5n+5):before, .secondaryList button:nth-child(5n+5):before {
   background-color: #7d5d81;   
 }
 
@@ -137,7 +144,7 @@ padding: 0;
 
 }
 
-.sidebar-nav li a {
+.sidebar-nav li a, .sidebar-nav li button {
   display: block;
   color: #ddd;
   text-decoration: none;
@@ -149,7 +156,13 @@ padding: 0;
 .sidebar-nav li a:focus,
 .sidebar-nav li.open a:hover,
 .sidebar-nav li.open a:active,
-.sidebar-nav li.open a:focus{
+.sidebar-nav li.open a:focus,
+.sidebar-nav li button:hover,
+.sidebar-nav li button:active,
+.sidebar-nav li button:focus,
+.sidebar-nav li.open button:hover,
+.sidebar-nav li.open button:active,
+.sidebar-nav li.open button:focus{
   color: #fff;
   text-decoration: none;
   background-color: transparent;
@@ -196,68 +209,6 @@ padding: 0;
   top: 0;
 }
 /*Fontawesome icons*/
-.nav.sidebar-nav li a::before {
-  font-family: fontawesome;
-  content: "\f12e";
-  vertical-align: baseline;
-  display: inline-block;
-  padding-right: 5px;
-}
-a[href*="#shapes"]::before {
-content: "\f1b2" !important;
-}
-a[href*="#circle"]::before {
-content: "\f111" !important;
-}
-a[href*="#rectangle"]::before {
-content: "\f0c8" !important;
-}
-a[href*="#arrow"]::before {
-content: "\f061" !important;
-}
-a[href*="#tick"]::before {
-content: "\f00c" !important;
-}
-a[href*="#myList"]::before {
-content: "\f03a" !important;
-}
-a[href*="#cleaning"]::before {
-content: "\f12d" !important;
-}
-a[href*="#color-picker"]::before {
-content: "\f1fb" !important;
-}
-a[href*="#draw"]::before {
-content: "\f044" !important;
-}
-a[href*="#triangle"]::before {
-content: "\f04b" !important;
-}
-a[href*="#abc"]::before {
-content: "\f12d" !important;
-}
-a[href*="#def"]::before {
-content: "\f12d" !important;
-}
-a[href*="#ghi"]::before {
-content: "\f12d" !important;
-}
-a[href*="#all"]::before {
-content: "\f12d" !important;
-}
-a[href*="#text"]::before {
-content: "\f034" !important;
-}
-a[href*="#undo"]::before {
-content: "\f0e2" !important;
-}
-a[href*="#upload"]::before {
-content: "\f093" !important;
-}
-a[href*="#download"]::before {
-content: "\f019" !important;
-color: #0084b4;
-}
 /*-------------------------------*/
 /*       Hamburger-Cross         */
 /*-------------------------------*/

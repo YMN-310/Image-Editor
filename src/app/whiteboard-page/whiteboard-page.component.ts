@@ -98,7 +98,7 @@ export class WhiteboardPageComponent implements OnInit {
   setImgUrl(str: any){
     this.imgData=str;
     // console.log(this.imgData);
-    this.imgUpload();
+    this.autoUpload();
   }
   clearSelection() {
     Object.keys(this.selectedButton).forEach(key => {
@@ -324,11 +324,43 @@ export class WhiteboardPageComponent implements OnInit {
 
   /*****************Clean Functions *******************/
   /*****************Image Upload *******************/
-  imgUpload() {
+  autoUpload() {
     // var URL = window.webkitURL || window.URL;
     // var url = URL.createObjectURL(e.target.files[0]);
     var img = new Image();
     img.src = this.imgData;
+    var _shapes = this.shapes;
+    var _layer = this.layer;
+    var _stage=this.stage;
+    var _this=this;
+    
+    img.onload = function(e) {
+      _this.cleanBG();
+      console.log(e);
+      var w=e.currentTarget['width']; //Taking width and height of the image.
+      var h=e.currentTarget['height'];
+      _this.resizeStage(w,h);// Resizing stage according to the width and height of image.
+      console.log("Image width: "+w);
+      console.log("Image height: "+h);
+      var theImg = new Konva.Image({
+        image: img,
+        type: 'Image',
+        x: 0,
+        y: 0,
+        width: w,
+        height: h
+        });
+      _shapes.push(theImg);
+      _layer.add(theImg);
+      _stage.add(_layer);
+    }
+  }
+  
+  imgUpload(e: any) {
+    var URL = window.webkitURL || window.URL;
+    var url = URL.createObjectURL(e.target.files[0]);
+    var img = new Image();
+    img.src = url;
     var _shapes = this.shapes;
     var _layer = this.layer;
     var _stage=this.stage;

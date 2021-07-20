@@ -7,33 +7,40 @@
   <nav class="navbar navbar-inverse fixed-top" id="sidebar-wrapper" role="navigation">
     <ul class="nav sidebar-nav">
       <li ngbDropdown class="dropdown d-inline-block">
-        <a href="#" class="dropdown-toggle" id="dropdownBasic1" ngbDropdownToggle>Shapes</a>
-        <ul ngbDropdownMenu aria-labelledby="dropdownBasic1">
+        <a href="#shapes" class="dropdown-toggle" id="dropdownBasic1" ngbDropdownToggle>Shapes</a>
+        <div class="secondaryList" ngbDropdownMenu aria-labelledby="dropdownBasic1">
           <button class="listItem clkbtn" ngbDropdownItem (click)='setSelection("circle"); addShape("circle")'>Circle</button>
-          <button class="listItem clkbtn" ngbDropdownItem>Another Action</button>
-          <button class="listItem clkbtn" ngbDropdownItem>Something</button>
-        </ul>
+          <button class="listItem clkbtn" ngbDropdownItem (click)='setSelection("rectangle"); addShape("rectangle")'>Rectangle</button>
+          <button class="listItem clkbtn" ngbDropdownItem (click)='setSelection("triangle"); addShape("triangle")'>Triangle</button>
+          <button class="listItem clkbtn" ngbDropdownItem (click)='setSelection("arrow"); addShape("arrow")'>Arrow</button>
+          <button class="listItem clkbtn" ngbDropdownItem (click)='setSelection("tick"); addShape("tick")'>Tick</button>
+        </div>
       </li>
-      <li><a href="#draw"id="Draw">Draw</a></li>
+      <li><button href="#draw" id="Draw" class="libtn" (click)='setSelection("line"); addShape("line"); erase = false'>
+        <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+        Draw</button></li>
       <li><a href="#text"id="Text">Text</a></li>
       <li ngbDropdown class="dropdown d-inline-block">
         <a href="#" class="dropdown-toggle" id="dropdownBasic1" ngbDropdownToggle>Shapes List</a>
-        <ul ngbDropdownMenu class="myList" aria-labelledby="dropdownBasic1">
+        <ul ngbDropdownMenu class="myList secondaryList" aria-labelledby="dropdownBasic1">
           <li class="listItem" ngbDropdownItem>Action - 1</li>
         </ul>
       </li>
       <li><a href="#color-picker"><input onInput="colour = this.value" type="color" class="color-picker"></a></li>
       <li ngbDropdown class="dropdown d-inline-block">
-        <a href="#cleaning" class="dropdown-toggle"  id="dropdownBasic1" ngbDropdownToggle>Cleaning<span class="caret"></span></a>
-        <ul ngbDropdownMenu class="dropdown-menu animated fadeInLeft" aria-labelledby="dropdownBasic1" role="menu">
-          <li class="listItem" ngbDropdownItem>Clean</li>
-          <li class="listItem" ngbDropdownItem>Clean Shapes</li>
-          <li class="listItem" ngbDropdownItem>Clean Circle</li>
-          <li class="listItem" ngbDropdownItem>Clean Rectangle</li>
-          <li class="listItem" ngbDropdownItem>Undo</li>
-        </ul>
+        <a href="#cleaning" class="dropdown-toggle"  id="dropdownBasic1" ngbDropdownToggle>Cleaning</a>
+        <div class="secondaryList" ngbDropdownMenu aria-labelledby="dropdownBasic1">
+          <button class="listItem clkbtn" ngbDropdownItem (click)='cleanfunc();'>Clean</button>
+          <button class="listItem clkbtn" ngbDropdownItem (click)='cleanshapesfunc();'>Clean Shapes</button>
+          <button class="listItem clkbtn" ngbDropdownItem (click)='cleancirclefunc();'>Clean Circle</button>
+          <button class="listItem clkbtn" ngbDropdownItem (click)='cleanrectanglefunc();'>Clean Rectangle</button>
+          <button class="listItem clkbtn" ngbDropdownItem (click)='clearSelection(); setSelection("undo"); undo()'>Undo</button>
+        </div>
       </li>
-      <li><a href="#upload">Upload</a></li>
+      <li><button class="libtn" (click)="fileInput.click()">
+        Upload
+        <input #fileInput type="file" (change)="imgUpload($event)" style="display:none;" />
+      </button></li>
       <li><a href="#download"id="save">Download</a></li>
       
     </ul>
