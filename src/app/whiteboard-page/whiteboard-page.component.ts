@@ -119,6 +119,7 @@ export class WhiteboardPageComponent implements OnInit {
     }
     else if (type == 'line') {
       this.addLine();
+      console.log('dreawing!!');
     }
     else if (type == 'rectangle') {
       this.addRectangle();
@@ -352,7 +353,7 @@ export class WhiteboardPageComponent implements OnInit {
         width: w,
         height: h
         });
-      _shapes.push(theImg);
+      // _shapes.push(theImg);
       _layer.add(theImg);
       _stage.add(_layer);
     }
@@ -384,7 +385,7 @@ export class WhiteboardPageComponent implements OnInit {
         width: w,
         height: h
         });
-      _shapes.push(theImg);
+      // _shapes.push(theImg);
       _layer.add(theImg);
       _stage.add(_layer);
     }
@@ -596,10 +597,16 @@ export class WhiteboardPageComponent implements OnInit {
   }
   
   move_to_top(i: any){
+    this.transformers.forEach(t => {
+      t.detach();
+    });
     this.shapes[i].moveToTop();
   }
   
   move_to_bottom(i: any){
+    this.transformers.forEach(t => {
+      t.detach();
+    });
     this.shapes[i].moveToBottom();
   }
 }
