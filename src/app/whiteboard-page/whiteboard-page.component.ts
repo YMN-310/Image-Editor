@@ -5,6 +5,7 @@ import { ShapeService } from '../shape.service';
 import { TextNodeService } from '../text-node.service';
 // import 'web-animations-js';
 import * as $ from 'jquery';
+import { toInteger } from '@ng-bootstrap/ng-bootstrap/util/util';
 @Component({
   selector: 'app-whiteboard-page',
   templateUrl: './whiteboard-page.component.html',
@@ -355,7 +356,7 @@ export class WhiteboardPageComponent implements OnInit {
       _stage.add(_layer);
     }
   }
-  
+
   imgUpload(e: any) {
     var URL = window.webkitURL || window.URL;
     var url = URL.createObjectURL(e.target.files[0]);
@@ -498,20 +499,30 @@ export class WhiteboardPageComponent implements OnInit {
   //---------------------Adding List Functionality-----------------------------
   makeList(){
     var select = document.querySelector(".myList");
-    // select.innerHTML = '';
+    select.innerHTML = '';
+    console.log(this.shapes.length);
     for(var i = 0; i < this.shapes.length; i++)
     {
+      if(this.shapes[i]["attrs"].type==='Image') continue;
+      console.log("loop #"+i);
       var div = document.createElement("div");
+      div.id = ""+i;
       div.style.color = "white";
-      div.style.textIndent = "60px";
-      div.className = "list_element"
+      div.style.textIndent = "10px";
+      div.className = "clkbtn"
       const t = document.createTextNode(""+ this.shapes[i]["attrs"].type);
-  
+      
       const button = document.createElement("button");
-      button.className = "btn btn-info btn-sm";
+      button.className = "btn btn-info btn-sm clkbtn";
       button.id = "b"+i;
-      const t1 = document.createTextNode("S_&_H");
+      const t1 = document.createTextNode("S&H");
       button.appendChild(t1);
+      const _this=this;
+      button.addEventListener('click',()=>{
+        let id_= div.id;
+        console.log(_this.shapes[id_]);
+        _this.snh(_this.shapes[id_]._id);
+      });
   
       const button2 = document.createElement("button");
       button2.className = "btn btn-info btn-sm";
@@ -525,12 +536,19 @@ export class WhiteboardPageComponent implements OnInit {
       const t3 = document.createTextNode("down");
       button3.appendChild(t3);
   
-      div.id = ""+i;
+      button.style.marginLeft="10px";
+      // button.style.marginTop="1px";
+      // button.style.height="10px";
+      button2.style.marginLeft="10px";
+      button3.style.marginLeft="10px";
+
       div.appendChild(t);
+      let br =document.createElement("br");
+      div.appendChild(br);
       div.appendChild(button);
       div.appendChild(button2);
       div.appendChild(button3);
-      document.getElementById("myList").appendChild(div);
+      select.appendChild(div);
     }
   }
   
@@ -557,7 +575,17 @@ export class WhiteboardPageComponent implements OnInit {
     //detach transformer
   }
   
-  
+  snh(_id: any){
+    console.log(_id);
+    let shape = this.stage.findOne(_id);
+    console.log("sh "+shape);
+    if (!shape["attrs"].visible) {
+      shape.show();
+    } else {
+      shape.hide();
+    }
+  }
+
   show_and_hide(i: any){
     var j = i.slice(1,);
     if (!this.shapes[j]["attrs"].visible) {
