@@ -6,6 +6,7 @@ import { TextNodeService } from '../text-node.service';
 // import 'web-animations-js';
 import * as $ from 'jquery';
 import { toInteger } from '@ng-bootstrap/ng-bootstrap/util/util';
+import { ColorSplitterBlock } from 'babylonjs/Materials/Node/Blocks/colorSplitterBlock';
 @Component({
   selector: 'app-whiteboard-page',
   templateUrl: './whiteboard-page.component.html',
@@ -466,6 +467,7 @@ export class WhiteboardPageComponent implements OnInit {
     const component = this;
     const tr = new Konva.Transformer();
     this.stage.on('click', function (e) {
+      component.transformers.forEach(t => { t.detach();});
       if (e.target.attrs.type!=='Stage'&&e.target.attrs.type!=='Image') { 
         component.addDeleteListener(e.target);
         component.layer.add(tr);
@@ -503,105 +505,101 @@ export class WhiteboardPageComponent implements OnInit {
     console.log(this.shapes.length);
     for(var i = 0; i < this.shapes.length; i++)
     {
+      const _this=this;
       if(this.shapes[i]["attrs"].type==='Image') continue;
-      console.log("loop #"+i);
+
       var div = document.createElement("div");
       div.id = ""+i;
       div.style.color = "white";
       div.style.textIndent = "10px";
-      div.className = "clkbtn"
-      const t = document.createTextNode(""+ this.shapes[i]["attrs"].type);
+      div.className = "listItem"
+
+      const shape_name = document.createElement("button");
+      shape_name.innerText=i+". "+ this.shapes[i]["attrs"].type;
+      shape_name.id=""+i;
+      shape_name.style.border="none";
+      shape_name.style.marginBottom="2px";
+      shape_name.style.backgroundColor="transparent";
+      shape_name.style.color="#fff";
+      shape_name.addEventListener('click',(e)=>{
+        _this.addTr(e.target["id"]);
+      });
       
-      const button = document.createElement("button");
-      button.className = "btn btn-info btn-sm clkbtn";
-      button.id = "b"+i;
-      const t1 = document.createTextNode("S&H");
-      button.appendChild(t1);
-      const _this=this;
-      button.addEventListener('click',()=>{
+      
+      const snh = document.createElement("button");
+      snh.className = "btn btn-info btn-sm clkbtn";
+      snh.id = ""+i;
+      snh.innerText="Hide";
+      snh.style.padding="0px";
+      snh.style.marginLeft="20px";
+      snh.addEventListener('click',(e)=>{
         let id_= div.id;
-        console.log(_this.shapes[id_]);
-        _this.snh(_this.shapes[id_]._id);
+        if(snh.innerText==='Hide') snh.innerText='Show';
+        else snh.innerText='Hide';
+        console.log(e.target["id"]);
+        _this.show_and_hide(e.target["id"]);
       });
   
-      const button2 = document.createElement("button");
-      button2.className = "btn btn-info btn-sm";
-      button2.id = "t"+i;
-      const t2 = document.createTextNode("top");
-      button2.appendChild(t2);
+      const move_to_top = document.createElement("button");
+      move_to_top.className = "btn btn-info btn-sm";
+      move_to_top.id = ""+i;
+      move_to_top.innerText='Top';
+      move_to_top.style.padding="0px";
+      move_to_top.style.marginLeft="10px";
+      move_to_top.addEventListener('click',(e)=>{
+        _this.move_to_top(e.target["id"]);
+      });
   
-      const button3 = document.createElement("button");
-      button3.className = "btn btn-info btn-sm";
-      button3.id = "d"+i;
-      const t3 = document.createTextNode("down");
-      button3.appendChild(t3);
-  
-      button.style.marginLeft="10px";
-      // button.style.marginTop="1px";
-      // button.style.height="10px";
-      button2.style.marginLeft="10px";
-      button3.style.marginLeft="10px";
+      const move_to_bottom = document.createElement("button");
+      move_to_bottom.className = "btn btn-info btn-sm";
+      move_to_bottom.id = ""+i;
+      move_to_bottom.innerText='Bottom';
+      move_to_bottom.style.padding="0px";
+      move_to_bottom.style.marginLeft="10px";
+      move_to_bottom.addEventListener('click',(e)=>{
+        _this.move_to_bottom(e.target["id"]);
+      });
 
-      div.appendChild(t);
+      div.appendChild(shape_name);
       let br =document.createElement("br");
       div.appendChild(br);
-      div.appendChild(button);
-      div.appendChild(button2);
-      div.appendChild(button3);
+      div.appendChild(snh);
+      div.appendChild(move_to_top);
+      div.appendChild(move_to_bottom);
       select.appendChild(div);
     }
   }
-  
-    
-  divSingleClick(e: any){
-    var i =  e.target.id;
-    const _this=this;
-    if(i[0]=='b')
-      this.show_and_hide(i);
-    else if(i[0]=='t')
-      this.move_to_top(i);
-    else if(i[0]=='d')
-      this.move_to_bottom(i);        
-    else
-    {
-      const tr = new Konva.Transformer();
-      _this.layer.add(tr);
-      tr.attachTo(e.target);
-      _this.transformers.push(tr);
-      _this.layer.draw();
-    }
-  }
-  divDoubleClick(){
-    //detach transformer
+
+  addTr(shape_id: any){
+    this.transformers.forEach(t => {
+      t.detach();
+    });
+    const tr = new Konva.Transformer();
+    this.layer.add(tr);
+    tr.attachTo(this.shapes[shape_id]);
+    this.transformers.push(tr);
+    this.layer.draw();
+    console.log(this.shapes[shape_id]);
   }
   
-  snh(_id: any){
-    console.log(_id);
-    let shape = this.stage.findOne(_id);
-    console.log("sh "+shape);
-    if (!shape["attrs"].visible) {
+  show_and_hide(shape_id: any){
+    this.transformers.forEach(t => {
+      t.detach();
+    });
+    let shape=this.shapes[shape_id];
+    console.log(shape);
+    if (shape["attrs"].visible===false) {
       shape.show();
     } else {
       shape.hide();
     }
   }
-
-  show_and_hide(i: any){
-    var j = i.slice(1,);
-    if (!this.shapes[j]["attrs"].visible) {
-      this.shapes[j].show();
-    } else {
-      this.shapes[j].hide();
-    }
-  }
   
   move_to_top(i: any){
-    var j = i.slice(1,);
-    this.shapes[j].moveToTop();
+    this.shapes[i].moveToTop();
   }
   
   move_to_bottom(i: any){
-    var j = i.slice(1,);
-    this.shapes[j].moveToBottom();
+    this.shapes[i].moveToBottom();
   }
 }
