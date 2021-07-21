@@ -3,3 +3,7 @@ app-models-list{
   background: -webkit-linear-gradient(to right, #E9E4F0, #D3CCE3);
   background: linear-gradient(to right, #E9E4F0, #D3CCE3);
 }
+app-animated-model{
+  margin: 0px;
+  overflow: hidden;
+}

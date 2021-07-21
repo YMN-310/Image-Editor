@@ -52,8 +52,8 @@ export class AnimatedModelComponent implements OnInit {
       return scene;
     }
     const canvas = document.getElementById("renderCanvas") as HTMLCanvasElement;
-    canvas.width=window.innerWidth-100;
-    canvas.height=window.innerHeight;
+    canvas.width=window.innerWidth;
+    canvas.height=window.innerHeight-6;
 
     const engine = new BABYLON.Engine(canvas, true);
 
