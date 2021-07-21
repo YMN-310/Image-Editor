@@ -1,6 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Crimson+Text:ital@1&family=Ubuntu+Condensed&display=swap');
 
 .wrapper{
+  position: absolute;
+  top: 0px;
+  left: 0px;
   background: #D3CCE3;
   background: -webkit-linear-gradient(to right, #E9E4F0, #D3CCE3);
   background: linear-gradient(to right, #E9E4F0, #D3CCE3);
