@@ -1,11 +1,37 @@
-<h1>Choose a Model!</h1>
 
-<button id="human_body_button" class='btn' (click)='showHumanBody();'>
-  <img src="assets/human_body.jpeg" class="img">
-</button>
-<button id="brain_button" class='btn' (click)='showBrain();'>
-  <img src="assets/brain_img.jpg" class="img">
-</button>
-<button id="heart_button" class='btn' (click)='showHeart();'>
-  <img src="assets/heart_img.jpg" class="img">
-</button>
+<div class="wrapper">
+  <h1>Choose Your Model!</h1>
+  <div class="inst">
+    <h2>Instructions:</h2>
+    <ul>
+      <li>
+        1. Select a model by clicking on it. A new page will open with the selected model.
+      </li>
+      <li>
+        2. Select the preferred view by dragging in any direction. Use mouse scroll to zoom-in or zoom-out.
+      </li>
+      <li>
+        3. Click on start editing button. A new page will open with image editor.
+        <ul>
+          <li>
+            a. Click on menu button on top right corner to access different tools.
+          </li>
+          <li>
+            b. Finally, click on download button to save the edited image on your device.
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+  <div class="buttons">
+    <button id="human_body_button" class='btn' (click)='showHumanBody();'>
+      <img src="assets/human_body.jpeg" class="img">
+    </button>
+    <button id="brain_button" class='btn' (click)='showBrain();'>
+      <img src="assets/brain_img.jpg" class="img">
+    </button>
+    <button id="heart_button" class='btn' (click)='showHeart();'>
+      <img src="assets/heart_img.jpg" class="img">
+    </button>
+  </div>
+</div>

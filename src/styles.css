@@ -1,1 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
+app-models-list{
+  background: #D3CCE3;
+  background: -webkit-linear-gradient(to right, #E9E4F0, #D3CCE3);
+  background: linear-gradient(to right, #E9E4F0, #D3CCE3);
+}
