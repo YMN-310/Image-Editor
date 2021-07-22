@@ -5,7 +5,7 @@ providedIn: 'root'
 })
 export class ShapeService {
   constructor() { }
-  circle() {
+  circle(clr) {
     return new Konva.Circle({
       x: 300,
       y: 100,
@@ -13,12 +13,12 @@ export class ShapeService {
       radius: 70,
       // fill: 'red',
       strokeScaleEnabled: false,
-      stroke: 'black',
+      stroke: clr,
       strokeWidth: 4,
       draggable: true
     });
   }
-  triangle(){
+  triangle(clr){
     return new Konva.RegularPolygon({
       x: 400,
       y: 150,
@@ -26,20 +26,20 @@ export class ShapeService {
       radius: 50,
       type : "Triangle",
       draggable: true,
-      stroke: 'black',
+      stroke: clr,
       strokeWidth: 4,
       strokeScaleEnabled: false,
       });
   }
-  arrow() {
+  arrow(clr) {
     return new Konva.Arrow({
       x: 400,
       y: 100,
       points: [0, 0, 100, 100],
       pointerLength: 10,
       pointerWidth: 10,
-      fill: 'black',
-      stroke: 'black',
+      fill: clr,
+      stroke: clr,
       type: 'Arrow',
       draggable: true,
       strokeWidth: 5,
@@ -47,7 +47,7 @@ export class ShapeService {
       hitStrokeWidth: 50
      });
   }
-  tick() {
+  tick(clr: any) {
     return new Konva.Shape({
       x: 300,
       y: 100,
@@ -66,7 +66,7 @@ export class ShapeService {
         context.rect(15,60,45,30);
         context.fillStrokeShape(shape);
       },
-      stroke: 'black',
+      stroke: clr,
       strokeWidth: 5,  
     });
   }
@@ -80,7 +80,7 @@ export class ShapeService {
       draggable: mode == 'brush'
     });
   }
-  rectangle() {
+  rectangle(clr: any) {
     return new Konva.Rect({
       x: 300,
       y: 100,
@@ -89,7 +89,7 @@ export class ShapeService {
       height: 100,
       // fill: 'green',
       strokeScaleEnabled: false,
-      stroke: 'black',
+      stroke: clr,
       strokeWidth: 4,
       draggable: true
     });

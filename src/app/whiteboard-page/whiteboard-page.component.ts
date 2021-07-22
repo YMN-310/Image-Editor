@@ -97,6 +97,11 @@ export class WhiteboardPageComponent implements OnInit {
 }
 
   imgData: any;
+  colour = 'black';
+  setColor(e: any){
+    this.colour=e.target.value; 
+    // console.log(this.colour);
+  }
   setImgUrl(str: any){
     this.imgData=str;
     // console.log(this.imgData);
@@ -111,6 +116,8 @@ export class WhiteboardPageComponent implements OnInit {
     this.selectedButton[type] = true;
   }
   addShape(type: string) {
+    console.log(this.colour);
+    
     if(type!=='line') this.not_draw();
     this.clearSelection();
     this.setSelection(type);
@@ -144,13 +151,13 @@ export class WhiteboardPageComponent implements OnInit {
     this.transformers.forEach(t => {
       t.detach();
     });
-    const text = this.textNodeService.textNode(this.stage, this.layer);
+    const text = this.textNodeService.textNode(this.stage, this.layer, this.colour);
     this.shapes.push(text.textNode);
     this.transformers.push(text.tr);
     this.makeList();
   }
   addCircle() {
-    const circle = this.shapeService.circle();
+    const circle = this.shapeService.circle(this.colour);
     this.shapes.push(circle);
     this.layer.add(circle);
     this.stage.add(this.layer);
@@ -158,7 +165,7 @@ export class WhiteboardPageComponent implements OnInit {
     this.makeList();
   }
   addArrow() {
-    const arrow = this.shapeService.arrow();
+    const arrow = this.shapeService.arrow(this.colour);
     this.shapes.push(arrow);
     this.layer.add(arrow);
     this.stage.add(this.layer);
@@ -166,7 +173,7 @@ export class WhiteboardPageComponent implements OnInit {
     this.makeList();
   }
   addTick() {
-    const tick = this.shapeService.tick();
+    const tick = this.shapeService.tick(this.colour);
     this.shapes.push(tick);
     this.layer.add(tick);
     this.stage.add(this.layer);
@@ -182,7 +189,7 @@ export class WhiteboardPageComponent implements OnInit {
     this.makeList();
   }
   addRectangle() {
-    const rectangle = this.shapeService.rectangle();
+    const rectangle = this.shapeService.rectangle(this.colour);
     this.shapes.push(rectangle);
     this.layer.add(rectangle);
     this.stage.add(this.layer);
@@ -190,7 +197,7 @@ export class WhiteboardPageComponent implements OnInit {
     this.makeList();
   }
   addTriangle() {
-    const triangle = this.shapeService.triangle();
+    const triangle = this.shapeService.triangle(this.colour);
     this.shapes.push(triangle);
     this.layer.add(triangle);
     this.stage.add(this.layer);

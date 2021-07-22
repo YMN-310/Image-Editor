@@ -18,9 +18,9 @@
         </div>
       </li>
 
-      <li><button id="Draw" class="libtn" (click)='setSelection("line"); addShape("line"); erase = false'>
+      <!-- <li><button id="Draw" class="libtn" (click)='setSelection("line"); addShape("line"); erase = false'>
         Draw</button>
-      </li>
+      </li> -->
 
       <li><button class="libtn" (click)='setSelection("text"); addShape("text");'>
         Text</button>
@@ -33,7 +33,7 @@
         </div>
       </li>
 
-      <li><a href="#color-picker"><input onInput="colour = this.value" type="color" class="color-picker"></a></li>
+      <li><label class="lbl" for="clr">Colour</label><input id="clr" (change)="setColor($event)" type="color" class="libtn color-picker"></li>
 
       <li ngbDropdown class="dropdown d-inline-block">
         <a href="#cleaning" class="dropdown-toggle"  id="dropdownBasic1" ngbDropdownToggle>Cleaning</a>

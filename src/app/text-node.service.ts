@@ -5,13 +5,16 @@ import Konva from 'konva';
 })
 export class TextNodeService {
 constructor() { }
-textNode(stage: any, layer: Konva.Layer) {
+textNode(stage: any, layer: Konva.Layer, clr: any) {
     const textNode = new Konva.Text({
       text: 'type here...',
       x: 50,
       y: 80,
       type: 'Text',
       fontSize: 16,
+      stroke: clr,
+      fill: clr,
+      strokeWidth: 0.2,
       edited: false,
       draggable: true,
       width: 200
